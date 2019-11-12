@@ -1,8 +1,10 @@
-DEMO:
+##DEMO:
+###Api:
 http://leogonza.asuscomm.com:81/api/
-DB: http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
+###DB: 
+http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
 
-Packages:
+## Json Packages:
 generateToken
 {
 	"name":"generateToken",
