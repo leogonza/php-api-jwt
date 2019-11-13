@@ -45,10 +45,10 @@
                 $user->setId($this->params['userId']);
 
 				if(!$user->get()) {
-					$this->returnResponse(INVALID_USER_PASS, "This user is not found in our database.");
+					$this->returnResponse(INVALID_USER_PASS, "Invalid user or password.");
 				}
 				if(!$user->isActive()) {
-					$this->returnResponse(USER_NOT_ACTIVE, "This user may be decactived. Please contact to admin.");
+					$this->returnResponse(USER_NOT_ACTIVE, "User is not active. Please contact to admin.");
                 }
                 $this->userId=$user->getId();
                 $payload = JWT::decode($token, $user->getTokenSecret(), ['HS256']);
@@ -92,7 +92,7 @@
 
         public function throwError ($code, $message){
             header("conten-type: application/json");
-            $errorMsg = json_encode(["error" => ['status'=>$code, 'message'=>$message]]);
+            $errorMsg = json_encode(['status'=>$code, 'message'=>$message]);
             echo $errorMsg;
             exit;
         }
@@ -135,7 +135,7 @@
 	                return $matches[1];
 	            }
 	        }
-	        $this->throwError( ATHORIZATION_HEADER_NOT_FOUND, 'Access Token Not found');
+	        $this->throwError( ATHORIZATION_HEADER_NOT_FOUND, 'JWT Token Not found');
 	    }
 
 

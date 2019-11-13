@@ -32,7 +32,7 @@ var app = new function () {
                 alert(response.result)
             self.jwtToken = response.result.token;
             self.userId = response.result.userId;
-            localStorage.jwtToken = selft.jwtToken;
+            localStorage.jwtToken = self.jwtToken;
             localStorage.userId = self.userId;
             closeModal('loginModal');
             self.getAllCustomers();
