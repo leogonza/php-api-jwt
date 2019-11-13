@@ -32,7 +32,7 @@
 				$user->updateUserTokenSecret($tokenSecret);
 
                 $token = JWT::encode($payload, $tokenSecret);
-                $data = ['token' => $token];
+                $data = ['token' => $token, 'userId' => $user->getId()];
                 $this->returnResponse(SUCCESS_RESPONSE, $data);
             } catch(Exception $e){
                 $this->returnResponse(JWT_PROCESSING_ERROR, $e->getMessage());
@@ -66,7 +66,6 @@
 			$cust->setId($customerId);
 			$customer = $cust->getCustomerDetailsById();
 			if(!is_array($customer)) {
-				print_r($customer);
 				$this->returnResponse(SUCCESS_RESPONSE, ['message' => 'Customer details not found.']);
 			}
 			$response['customerId'] 	= $customer['id'];
@@ -77,6 +76,15 @@
 			$response['createdBy'] 		= $customer['created_user'];
 			$response['lastUpdatedBy'] 	= $customer['updated_user'];
 			$this->returnResponse(SUCCESS_RESPONSE, $response);
+		}
+		
+		public function getAllCustomers() {
+			$cust = new Customer;
+			$customers = $cust->getAllCustomers();
+			if(!is_array($customers)) {
+				$this->returnResponse(SUCCESS_RESPONSE, ['message' => 'Customer details not found.']);
+			}
+			$this->returnResponse(SUCCESS_RESPONSE, $customers);
         }
         
 		public function updateCustomer() {
@@ -111,4 +119,3 @@
 		}
 
     }
-?>

@@ -99,7 +99,7 @@
 
         public function returnResponse ($code, $responseData) {
             header("conten-type: application/json");
-            $response = json_encode(["response" => ['status'=>$code, 'result'=>$responseData]]);
+            $response = json_encode(['status'=>$code, 'result'=>$responseData]);
             echo $response;
             exit;
         }
