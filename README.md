@@ -87,8 +87,8 @@
 
 ## Demo
 ### API:
-* http://leogonza.asuscomm.com:81/api/
+* http://172.107.166.13:81/
 
 ### Db:
-* http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
+* http://172.107.166.13:82/db_structure.php?server=1&db=php-jwt
 
