@@ -47,24 +47,23 @@
 
 ## Source Code:
 ### Api
-•	\api\index.php 
-o	Entry point; creates an instance of the Api class to handle all the calls
-•	\api\api.php
-o	Public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
-•	\api\rest.php
-o	Parent Class for the Api; validates the token on every request and invokes the Api method using reflection.
+* \api\index.php 
+	Entry point; creates an instance of the Api class to handle all the calls
+* \api\api.php
+	Public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
+*\api\rest.php
+	Parent Class for the Api; validates the token on every request and invokes the Api method using reflection.
 
 ### Common (Helper functions)
-•	\common\constants.php -> Some constants used.
-o	TOKEN_MINUTES_TO_EXPIRE -> Minutes to expire the token
-•	\common\dbConnect.php -> MySql connection class
-•	\common\functions.php -> Helper functions
-•	\common\jwt.php -> Library PHP-JWT included in the solution
+* \common\constants.php -> Some constants used.
+	TOKEN_MINUTES_TO_EXPIRE -> Minutes to expire the token
+* \common\dbConnect.php -> MySql connection class
+* \common\functions.php -> Helper functions
+* \common\jwt.php -> Library PHP-JWT included in the solution
 
 ### Dal (Data access layer)
-•	\dal\customer.php  -> Customers table CRUD
-•	\dal\user.php -> Users table CRUD
-
+* \dal\customer.php  -> Customers table CRUD
+* \dal\user.php -> Users table CRUD
 
 ## Demo
   http://leogonza.asuscomm.com:81/api/
