@@ -13,7 +13,7 @@
 ```
 
 ### addCustomer
-> Adds a customer to the Customer Table; JWT Barer token is required
+> Adds a customer to the Customer Table; JWT Bearer token is required
 ```
 {
 	"name":"addCustomer",
@@ -28,7 +28,7 @@
 ```
 
 ### getCustomerDetails
-> Returns a customer detailed information; JWT Barer token is required
+> Returns a customer detailed information; JWT Bearer token is required
 ```
 {
 	"name":"getCustomerDetails",
@@ -40,7 +40,7 @@
 ```
 
 ### updateCustomer
-> Updates customer information; JWT Barer token is required
+> Updates customer information; JWT Bearer token is required
 ```
 {
 	"name":"updateCustomer",
@@ -52,6 +52,17 @@
 		"mobile": "8888"
 	}
 }	
+```
+### deleteCustomers
+> Deletes a customer; JWT Bearer token is required
+```
+{
+	"name":"deleteCustomer",
+	"params": {
+		"userId": 3,
+		"customerId": 5
+	}
+}
 ```
 
 ## Libraries used:
