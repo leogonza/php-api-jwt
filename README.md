@@ -1,7 +1,7 @@
 # JSON Packages:
 
 ### generateToken
-> Use to validate user credentials and returns the JWT Token required to be used in future API calls; it stores the a unique private key for the user in the "Users" table that is required for signing the JWT token
+> Use to validate user credentials and returns the JWT Token required to be used in future API calls; it stores a unique private key for the user in the "Users" table that is required for signing the JWT token
 ```
 {
 	"name":"generateToken",
