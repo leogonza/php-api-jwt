@@ -1,6 +1,7 @@
 # JSON Packages:
 
 ### generateToken
+```
 {
 	"name":"generateToken",
 	"params": {
@@ -8,8 +9,10 @@
 		"pass": "test123"
 	}
 }
+```
 
 ### addCustomer
+```
 {
 	"name":"addCustomer",
 	"params": {
@@ -20,6 +23,7 @@
 		"mobile": "77777"
 	}
 }
+```
 
 ### getCustomerDetails
 {
@@ -52,7 +56,7 @@
 * \api\api.php
 	Public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
 * \api\rest.php
-	Parent Class for the Api; validates the token on every request and invokes the Api method using reflection.
+	Parent Class for the Api; validates the token on every request and invokes the corresponding Api method using reflection.
 
 ### Common (Helper functions)
 * \common\constants.php -> Some constants used.
@@ -66,8 +70,9 @@
 * \dal\user.php -> Users table CRUD
 
 ## Demo
+### API:
 * http://leogonza.asuscomm.com:81/api/
 
-## Db
+### Db:
 * http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
 
