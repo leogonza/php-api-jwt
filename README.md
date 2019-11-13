@@ -71,9 +71,9 @@
 ## Source Code:
 ### Api
 * \api\index.php 
-	Entry point; creates an instance of the Api class to handle all the calls
+	Entry point. Creates an instance of the Api class to handle all the calls
 * \api\api.php
-	Public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
+	Contains the public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
 * \api\rest.php
 	Parent Class for the Api; validates the token on every request and invokes the corresponding Api method using reflection.
 
