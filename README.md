@@ -51,7 +51,7 @@
 	Entry point; creates an instance of the Api class to handle all the calls
 * \api\api.php
 	Public methods use in the API: generateToken, addCustomer, getCustomerDetails, updateCustomer, deleteCustomer
-*\api\rest.php
+* \api\rest.php
 	Parent Class for the Api; validates the token on every request and invokes the Api method using reflection.
 
 ### Common (Helper functions)
@@ -66,8 +66,8 @@
 * \dal\user.php -> Users table CRUD
 
 ## Demo
-  http://leogonza.asuscomm.com:81/api/
+* http://leogonza.asuscomm.com:81/api/
 
 ## Db
-http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
+* http://leogonza.asuscomm.com/phpmyadmin/db_structure.php?server=1&db=php-jwt
 
