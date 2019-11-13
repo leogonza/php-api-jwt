@@ -1,6 +1,7 @@
 # JSON Packages:
 
 ### generateToken
+> Use to validate user credentials and returns the JWT Token required to be used in future API calls; it stores the a unique private key for the user in the "Users" table that is required for signing the JWT token
 ```
 {
 	"name":"generateToken",
@@ -12,6 +13,7 @@
 ```
 
 ### addCustomer
+> Adds a customer to the Customer Table; JWT Barer token is required
 ```
 {
 	"name":"addCustomer",
@@ -26,15 +28,20 @@
 ```
 
 ### getCustomerDetails
+> Returns a customer detailed information; JWT Barer token is required
+```
 {
 	"name":"getCustomerDetails",
 	"params": {
 		"userId": 3,
 		"customerId": 5
 	}
-}	
+}
+```
 
 ### updateCustomer
+> Updates customer information; JWT Barer token is required
+```
 {
 	"name":"updateCustomer",
 	"params": {
@@ -45,6 +52,7 @@
 		"mobile": "8888"
 	}
 }	
+```
 
 ## Libraries used:
 •	PHP-JWT: https://github.com/firebase/php-jwt
