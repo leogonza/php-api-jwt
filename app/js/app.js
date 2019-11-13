@@ -1,12 +1,11 @@
-$(document).ready(function () {
-    initCheckBoxes();
-    bindEvents();
-    app.init();
-});
-
 var app = new function () {
     this.userId = false;
     this.jwtToken = null;
+    this.customerIdForAction = null;
+
+    this.setCustomerIdForAction = function (id) {
+        this.customerIdForAction = id;
+    };
 
     this.init = function () {
         if (!localStorage.jwtToken || !localStorage.userId)
@@ -17,7 +16,7 @@ var app = new function () {
             this.getAllCustomers();
         }
 
-    }
+    };
 
     this.Login = function (email, pass) {
         data = {
@@ -27,15 +26,16 @@ var app = new function () {
                 "pass": pass
             }
         };
+        var self = this;
         ajaxCall(data, function (response) {
             if (response.status != 200)
                 alert(response.result)
-            this.jwtToken = response.result.token;
-            this.userId = response.result.userId;
-            localStorage.jwtToken = this.jwtToken;
-            localStorage.userId = this.userId;
-            closeLoginModal();
-            this.getAllCustomers();
+            self.jwtToken = response.result.token;
+            self.userId = response.result.userId;
+            localStorage.jwtToken = selft.jwtToken;
+            localStorage.userId = self.userId;
+            closeModal('loginModal');
+            self.getAllCustomers();
         });
     };
 
@@ -50,11 +50,55 @@ var app = new function () {
             addCustomersToTable(response.result);
         });
 
+    };
+
+    this.addCustomer = function (name, email, address, mobile) {
+        data = {
+            name: "addCustomer",
+            params: {
+                "userId": this.userId,
+                "name": name,
+                "email": email,
+                "addr": address,
+                "mobile": mobile
+            }
+        };
+        var self = this;
+        ajaxCall(data, function () {
+            closeModal('addCustomerModal');
+            clearAddCustomerModalFields();
+            self.getAllCustomers();
+        });
     }
 
-    function ajaxCall(postData, onSuccess, onError) {
-        postData = JSON.stringify(data);
+    this.deleteCustomers = function (customers) {
+        if (customers && customers.length > 0) {
+            $.each(customers, function (i, customer) {
+                deleteCustomer(customer);
+            });
+        } else if (this.customerIdForAction && !isNaN(this.customerIdForAction)) {
+            deleteCustomer(this.customerIdForAction);
+        }
+        closeModal('deleteCustomerModal');
+        this.getAllCustomers();
+    };
 
+    var deleteCustomer = function (customerId, onSuccess) {
+        if (!customerId || isNaN(customerId)) customerId = this.customerIdForAction;
+        data = {
+            name: "deleteCustomer",
+            params: {
+                "userId": this.userId,
+                "customerId": customerId
+            }
+        };
+        ajaxCall(data, onSuccess);
+        this.customerIdForAction = null;
+    }.bind(this);
+
+    var ajaxCall = function (postData, onSuccess, onError) {
+        postData = JSON.stringify(data);
+        var token = this.jwtToken;
         $.ajax({
             type: 'POST',
             url: '/api/',
@@ -62,96 +106,23 @@ var app = new function () {
             contentType: "application/json",
             data: postData,
             beforeSend: function (xhr) {
-                if (localStorage.jwtToken) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.jwtToken);
+                if (token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
                 }
             },
-            success: function (data) {
-                if (onSuccess) onSuccess(data);
+            success: function (response) {
+                if (!response || !response.status || response.status != 200) {
+                    showLoginModal();
+                    if (onError) onError(response);
+                    return false;
+                }
+                if (onSuccess) onSuccess(response);
             },
             error: function (e) {
-                //console.log(e);
-                //if (onError) onError();
-                alert("Sorry, you are not logged in.");
+                if (onError) onError(e);
+                showLoginModal();
             }
         });
-    }
+    }.bind(this);
 
 };
-
-function initCheckBoxes() {
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function () {
-        if (this.checked) {
-            checkbox.each(function () {
-                this.checked = true;
-            });
-        } else {
-            checkbox.each(function () {
-                this.checked = false;
-            });
-        }
-    });
-    checkbox.click(function () {
-        if (!this.checked) {
-            $("#selectAll").prop("checked", false);
-        }
-    });
-}
-
-function bindEvents() {
-    $("#btnLogin").click(function () {
-        var email = $('#txtLoginEmail').val();
-        var pass = $('#txtLoginPass').val();
-        console.log(email, pass);
-        app.Login(email, pass);
-    });
-}
-
-function showLoginModal() {
-    $('#loginModal').modal({
-        show: 'true',
-        backdrop: 'static',
-        keyboard: false
-    });
-    setTimeout(function () {
-        $('#txtLoginEmail').focus();
-    }, 500);
-}
-
-function closeLoginModal() {
-    $('#loginModal').modal('hide');
-}
-
-function addCustomersToTable(customers) {
-    console.log(customers);
-    $(function () {
-        $.each(customers, function (i, customer) {
-            var tds = [
-                $('td').html(createCheckboxCel(customer)),
-                $('td').html(customer.name),
-                $('td').html(customer.email),
-                $('td').html(customer.address),
-                $('td').html(customer.mobile),
-                $('td').html(customer.id)
-            ];
-
-            $('<tr>')
-                .html(tds.join(""))
-                .appendTo('#customersTable');
-
-        });
-    });
-}
-
-function createCheckboxCel(customer) {
-    var ret = '<span class="custom-checkbox">< input type="checkbox" id="checkbox' + customer.id +
-        '" name="options[]" value="' + customer.id +
-        '" ><label for="checkbox' + customer.id + '"></label></span >';
-    console.log(ret);
-    return ret;
-}
