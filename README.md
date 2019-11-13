@@ -88,6 +88,8 @@
 ## Demo
 ### API:
 * http://172.107.166.13:81/
+* user: buckeye@gmail.com
+* pass: by123
 
 ### Db:
 * http://172.107.166.13:82/db_structure.php?server=1&db=php-jwt
