@@ -87,7 +87,7 @@
 
 ## Demo
 ### API:
-* http://172.107.166.13:81/
+* http://demo.sistemaslgr.com:81/
 * user: buckeye@gmail.com
 * pass: by123
 
